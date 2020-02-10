@@ -1,0 +1,46 @@
+
+- include_vars: fonts.yml
+
+- name: Check if Noto Mono is already installed
+  stat:
+    path: "{{ noto_mono_dir }}/{{ noto_mono_name }}"
+  register: noto_stat
+
+- name: Get Noto Mono font
+  block:
+    - name: Make temporary directory
+      tempfile:
+        state: directory
+      register: tempdir
+
+    - name: Download Noto Mono font
+      get_url:
+        dest: "{{ tempdir.path }}/noto_mono.zip"
+        url: "{{ noto_mono_url }}"
+
+    - name: Unpack Noto Mono font
+      unarchive:
+        dest: "{{ tempdir.path }}"
+        remote_src: yes
+        src: "{{ tempdir.path }}/noto_mono.zip"
+
+    - name: Noto font directory exists
+      file:
+        path: "{{ noto_mono_dir }}"
+        state: directory
+
+    - name: Install Noto Mono font
+      copy:
+        dest: "{{ noto_mono_dir }}"
+        src: "{{ tempdir.path }}/{{ noto_mono_name }}"
+      become: yes
+
+    - name: Update font cache
+      shell: fc-cache -f -v
+      become: yes
+  always:
+    - name: Delete temporary directory
+      file:
+        dest: "{{ tempdir.path }}"
+        state: absent
+  when: not noto_stat.stat.exists

@@ -1,0 +1,18 @@
+{
+	"color_scheme": "Packages/Material Monokai/MaterialMonokaiDark.tmTheme",
+	"font_size": 15,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"material_theme_accent_purple": true,
+	"material_theme_accent_scrollbars": true,
+	"material_theme_small_statusbar": true,
+	"material_theme_small_tab": true,
+	"rulers":
+	[
+		80,
+		120
+	],
+	"theme": "Material-Theme-Darker.sublime-theme"
+}

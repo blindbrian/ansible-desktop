@@ -1,0 +1,5 @@
+
+- name: Configure gnome-terminal
+  shell: dconf load /org/gnome/terminal/ <<< "{{ lookup('template', 'terminal/gnome-terminal-dconf.j2') }}"
+  args:
+    executable: /bin/bash

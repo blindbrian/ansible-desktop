@@ -1,0 +1,53 @@
+
+- include_vars: sublime.yml
+
+- name: Add Sublime apt repo GPG key
+  apt_key:
+    id: 1EDDE2CDFC025D17F6DA9EC0ADAE6AD28A8F901A
+    state: present
+    url: https://download.sublimetext.com/sublimehq-pub.gpg
+  become: yes
+
+- name: Add Sublime apt repo
+  apt_repository:
+    repo: deb https://download.sublimetext.com/ apt/stable/
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Install Sublime
+  apt:
+    pkg: sublime-text
+    state: present
+  become: yes
+
+- name: Create Sublime config directory
+  file:
+    path: ~/.config/sublime-text-3/Local
+    state: directory
+
+- name: Activate Sublime license
+  copy:
+    dest: ~/.config/sublime-text-3/Local/License.sublime_license
+    src: sublime/License.sublime_license
+
+- name: Make Sublime settings directories
+  file:
+    path: "{{ sublime_user_settings_dir }}/{{ item.path }}"
+    state: directory
+  when: item.state == 'directory'
+  with_filetree:
+    - sublime/settings/
+
+- name: Copy Sublime settings
+  copy:
+    dest: "{{ sublime_user_settings_dir }}/{{ item.path }}"
+    src: "{{ item.src }}"
+  when: item.state == 'file'
+  with_filetree:
+    - sublime/settings/
+
+- name: Install Sublime package control
+  get_url:
+    dest: "{{ sublime_installed_packages_dir }}/Package Control.sublime-package"
+    url: https://packagecontrol.io/Package%20Control.sublime-package

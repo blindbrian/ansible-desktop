@@ -1,0 +1,58 @@
+
+- include_vars: regolith.yml
+
+- name: Add Regolith PPA
+  apt_repository:
+    repo: ppa:kgilmer/regolith-stable
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Install Regolith and lightdm
+  apt:
+    pkg:
+      - regolith-desktop
+      - lightdm
+      - materia-gtk-theme
+  become: yes
+
+- name: Set lightdm as the display manager
+  copy:
+    content: /usr/sbin/lightdm
+    dest: /etc/X11/default-display-manager
+  become: yes
+
+- name: Reconfigure lightdm
+  shell: DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true dpkg-reconfigure lightdm
+  become: yes
+
+- name: Create i3 config directory
+  file:
+    path: "{{ i3_config_dir }}"
+    state: directory
+
+- name: Copy i3 config
+  template:
+    dest: "{{ i3_config_dir }}/config"
+    src: regolith/i3-config.j2
+
+- name: Copy .Xresources-regolith
+  template:
+    dest: ~/.Xresources-regolith
+    src: regolith/Xresources-regolith.j2
+
+- name: Make GTK theme directories
+  file:
+    path: "~/.themes/oomox-materia-dark/{{ item.path }}"
+    state: directory
+  when: item.state == 'directory'
+  with_filetree:
+    - oomox-materia-dark/
+
+- name: Copy GTK theme
+  copy:
+    dest: "~/.themes/oomox-materia-dark/{{ item.path }}"
+    src: "{{ item.src }}"
+  when: item.state == 'file'
+  with_filetree:
+    - oomox-materia-dark/

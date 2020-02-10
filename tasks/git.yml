@@ -1,0 +1,23 @@
+
+- name: Install git
+  apt:
+    pkg: git
+    state: present
+  become: yes
+
+- name: Create git config directory
+  file:
+    path: ~/.config/git
+    state: directory
+
+- name: Template git configuration
+  template:
+    dest: ~/.config/git/{{ item.dest }}
+    src: "{{ item.src }}"
+    lstrip_blocks: true
+    trim_blocks: true
+  with_items:
+    - dest: ignore
+      src: git/gitignore.j2
+    - dest: config
+      src: git/gitconfig.j2

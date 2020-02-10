@@ -1,0 +1,4 @@
+
+sublime_config_dir: ~/.config/sublime-text-3
+sublime_installed_packages_dir: "{{ sublime_config_dir }}/Installed Packages"
+sublime_user_settings_dir: "{{ sublime_config_dir }}/Packages/User"

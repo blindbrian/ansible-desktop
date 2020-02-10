@@ -1,0 +1,6 @@
+
+galaxy_info:
+  role_name: desktop
+  author: Brian Eccles
+  description: Ansible role for configuring personal desktop/laptop environments.
+  min_ansible_version: 2.9

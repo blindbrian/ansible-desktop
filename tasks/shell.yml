@@ -1,0 +1,22 @@
+
+- name: Create ~/.bashrc.d/
+  file:
+    path: '{{ "~/.bashrc.d" | expanduser }}'
+    state: directory
+
+- name: Template .dircolors
+  template:
+    dest: '{{ "~/.dircolors" | expanduser }}'
+    src: shell/dircolors.j2
+
+- name: Tempalte main .bashrc
+  template:
+    dest: '{{ "~/.bashrc" | expanduser }}'
+    src: shell/bashrc.j2
+
+- name: Template .bashrc parts
+  template:
+    dest: '{{ "~/.bashrc.d" | expanduser}}/{{ item | basename }}'
+    src: "{{ item }}"
+  with_fileglob:
+    - templates/shell/*.bashrc.j2

@@ -1,0 +1,11 @@
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# Soruce .bashrc parts
+for f in $HOME/.bashrc.d/*; do
+	source "$f"
+done
