@@ -31,7 +31,7 @@ bindsym $mod+Return exec $terminal_path
 bindsym $mod+Shift+Return exec /usr/bin/sensible-browser
 
 # kill focused window
-bindsym $mod+Shift+k kill
+bindsym $mod+Shift+q kill
 
 set_from_resource $rofiTheme rofi.theme "regolith-theme"
 
@@ -41,27 +41,26 @@ bindsym $mod+Shift+space exec rofi -show run -theme $rofiTheme
 bindsym $mod+Ctrl+space exec rofi -show window -theme $rofiTheme
 
 # change focus
-bindsym $mod+p focus parent
-
-bindsym $mod+Shift+p move parent
+bindsym $mod+a focus parent
+bindsym $mod+c focus child
 
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 bindsym $mod+Home focus parent; focus left; focus child
-bindsym $mod+PageDown focus parent; focus down; focus child
-bindsym $mod+PageUp focus parent; focus up; focus child
+bindsym $mod+PgDown focus parent; focus down; focus child
+bindsym $mod+PgUp focus parent; focus up; focus child
 bindsym $mod+End focus parent; focus right; focus child
 
-bindsym $mod+s focus left
-bindsym $mod+d focus down
-bindsym $mod+e focus up
-bindsym $mod+f focus right
-bindsym $mod+w focus parent; focus left; focus child
-bindsym $mod+a focus parent; focus down; focus child
-bindsym $mod+q focus parent; focus up; focus child
-bindsym $mod+r focus parent; focus right; focus child
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+i focus up
+bindsym $mod+semicolon focus right
+bindsym $mod+u focus parent; focus left; focus child
+bindsym $mod+l focus parent; focus down; focus child
+bindsym $mod+o focus parent; focus up; focus child
+bindsym $mod+p focus parent; focus right; focus child
 
 # move windows in workspaces
 bindsym $mod+Shift+Left move left
@@ -69,10 +68,10 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-bindsym $mod+Shift+s move left
-bindsym $mod+Shift+d move down
-bindsym $mod+Shift+e move up
-bindsym $mod+Shift+f move right
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+i move up
+bindsym $mod+Shift+semicolon move right
 
 
 # toggle split orientation
@@ -152,9 +151,9 @@ set_from_resource $ws19 i3-wm.workspace.19.name "19"
 
 
 # reload the configuration file
-bindsym $mod+i reload
+bindsym $mod+r reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+i restart
+bindsym $mod+Shift+r restart
 
 
 # Reboot computer
@@ -168,7 +167,7 @@ bindsym $mod+Shift+z exec /usr/bin/gnome-session-quit --power-off
 # lock the screen
 bindsym $mod+x exec gnome-screensaver-command --lock
 # Logout of session
-bindsym $mod+Shift+Escape exec /usr/bin/gnome-session-quit --logout
+bindsym $mod+Shift+x exec /usr/bin/gnome-session-quit --logout
 
 
 # shortcuts for common system configuration tasks
